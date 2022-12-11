@@ -1,0 +1,54 @@
+# install user packages
+pacman --noconfirm -Syu \
+zsh \
+xdg-open \
+
+* run networkmanager on startup
+systemctl enable NetworkManager
+
+* boot ( non efi )
+** install 
+grub-install --target=i386-pc /dev/sdX ( boot partition )
+** configure
+grub-mkconfig -o /boot/grub/grub.cfg
+
+* set root password
+passwd fabiusroot
+
+* configure english locale
+# en_US.UTF-8 UTF-8  
+sed -i 's/#en_US.*UTF.*/en_US.UTF-8 UTF-8/'
+locale-gen
+echo "en_US.UTF-8" > /etc/locale.conf
+
+* set hostname
+echo "arch" > /etc/hostname
+
+## AFTER INSTALL
+* install packages
+pacman --noconfirm -Syu \
+dmenu \
+i3 \
+alacritty \
+git \
+fzf
+
+* run dwm on startx & set colorscheme for terminal
+.xinitrc ( from repo )
+
+** set up colorscheme
+file is ~/.config/.Xresources
+
+* configure default output sink ( pulse audio )
+pacmd list-sinks | grep -e 'name:' -e 'index:'
+** insert name in this file as default ouput ( template is already provided, just append name) 
+sudo nvim /etc/pulse/default.pa 
+
+* install and configure zsh
+** install - zap plugin mangager for zsh
+sh <(curl -s https://raw.githubusercontent.com/zap-zsh/zap/master/install.sh)
+** git prompt from: 
+https://salferrarello.com/zsh-git-status-prompt/
+
+* remap esc and caps
+script in `~/.local/bin/remaps`
