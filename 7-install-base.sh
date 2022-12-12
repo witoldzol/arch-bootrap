@@ -9,4 +9,4 @@ sof-firmware \
 linux-headers \
 networkmanager \
 grub \
-neovim \
+neovim 

@@ -1,3 +1,3 @@
 #!/bin/sh
 
-genfstab -U /mnt >> /mnt/etc/fstab
+genfstab -U /mnt > /mnt/etc/fstab
